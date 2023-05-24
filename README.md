@@ -7,5 +7,5 @@ STL files and assembly instructions are to be found on printables (once I comple
 
 This repository contains the micropython files for the bot and the interface files for the EoboRemo control app for android
 
-Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo
-Demo app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremofree
+Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo  
+Demo app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremofree  
