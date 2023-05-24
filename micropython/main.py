@@ -78,18 +78,19 @@ def set_speed(desired):
 def servo_speed(servo, spd):
     #speed is -1 to 1
     #corrections for different servo speeds
+    #YOU WILL NEED TO DETERMINE YOUR OWN VALUES
     #forward correction
     if spd > 0:
-        if (servo == LF): spd = spd * 0.9
-        if (servo == RF): spd = -spd * 1.1
-        if (servo == RR): spd = -spd * 1.18
+        if (servo == LF): spd = spd * 1.0
+        if (servo == RF): spd = -spd * 1.0
+        if (servo == RR): spd = -spd * 1.0
 
     #backward correction
     elif spd < 0:
-        spd = spd * 1.25
-        if (servo == LF): spd = spd * 0.955
-        if (servo == RF): spd = -spd * 0.8
-        if (servo == RR): spd = -spd * 0.9
+        spd = spd * 1.0
+        if (servo == LF): spd = spd * 1.0
+        if (servo == RF): spd = -spd * 1.0
+        if (servo == RR): spd = -spd * 1.0
     
     servos.throttle(servo,spd)
 
