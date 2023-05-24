@@ -11,5 +11,5 @@ Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roborem
 Demo app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremofree  
 
 The project uses:  
-ht16k33.mpy courtest of smittytone https://github.com/smittytone/HT16K33-Python/tree/main/mpy  
+ht16k33.mpy courtesy of smittytone https://github.com/smittytone/HT16K33-Python/tree/main/mpy  
 hc-sr04.py courtesy of rsc1975 https://github.com/rsc1975/micropython-hcsr04/tree/master
