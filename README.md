@@ -9,3 +9,5 @@ This repository contains the micropython files for the bot and the interface fil
 
 Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo  
 Demo app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremofree  
+
+The project uses ht16k33.mpy courtest of smittytone https://github.com/smittytone/HT16K33-Python/tree/main/mpy  
