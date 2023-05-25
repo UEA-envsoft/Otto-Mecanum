@@ -78,19 +78,23 @@ def set_speed(desired):
 def servo_speed(servo, spd):
     #speed is -1 to 1
     #corrections for different servo speeds
-    #YOU WILL NEED TO DETERMINE YOUR OWN VALUES
+    #(RHS motors are reversed)
+    if (servo == RF or servo == RR): spd = -spd
+    #YOU WILL NEED TO DETERMINE YOUR OWN CALIBRATION VALUES
+    
     #forward correction
     if spd > 0:
+        if (servo == LR): spd = spd * 1.0 + 0
         if (servo == LF): spd = spd * 1.0
-        if (servo == RF): spd = -spd * 1.0
-        if (servo == RR): spd = -spd * 1.0
+        if (servo == RF): spd = spd * 1.0
+        if (servo == RR): spd = spd * 1.0
 
     #backward correction
     elif spd < 0:
-        spd = spd * 1.0
+        if (servo == LR): spd = spd * 1.0 - 0
         if (servo == LF): spd = spd * 1.0
-        if (servo == RF): spd = -spd * 1.0
-        if (servo == RR): spd = -spd * 1.0
+        if (servo == RF): spd = spd * 1.0
+        if (servo == RR): spd = spd * 1.0
     
     servos.throttle(servo,spd)
 
@@ -192,7 +196,7 @@ def status(command = "none"):
     status += "\nLFL: " + L +"\nLFC: " + C + "\nLFR: " + R
     print(status)
     #Distance
-    status += "\nDT: 17" #+ str(get_distance())
+    status += "\nDT: " + str(get_distance()) + "cm"
     print(status)
     #Speed
     status += "\nSP: " + str(int(speed*10))
