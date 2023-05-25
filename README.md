@@ -25,6 +25,7 @@ The demo only allows 5 controls per page so control is distributed over several 
 The files for the demo version are in the RoboRemoDemo Interface files directory.  
 Import iface0 on the openning page. Then click the options page button. This button has 7 in brackets, indicating it will take you to page 7 so click the button to go to page 7 and then import iface7 for this page, keep on navigating and importing. Obviously a right faff to do this. I highly recommend paying  for the full version!
 
+In either version the conneciton 1 and connection 2 buttons need to be edited to contain the appropriate ip address for your bot  
 
 The project uses:  
 ht16k33.mpy courtesy of smittytone https://github.com/smittytone/HT16K33-Python/tree/main/mpy  
