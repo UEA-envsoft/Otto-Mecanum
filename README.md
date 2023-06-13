@@ -1,7 +1,7 @@
 # Otto-Mecanum
 Code for the Otto Mecanum Bot
 
-![otto mecanum](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/f07693c9-3b2d-406c-9f04-332b17b79140)
+![otto mecanum](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/8e8d4ade-23fb-4242-af25-9b9f096500bb)
 
 Otto Mecanum is a 3d printed robot with mecanum wheels.
 
@@ -12,15 +12,15 @@ This repository contains the micropython files for the bot and the interface fil
 Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo  
 RoboRemo.interface is the interface to be imported for control of Otto Mecanum  
 
-![image](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/674ea529-6b33-4872-b40e-1cc802eaf7f6)
+![roboremo](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/d566f32c-bc0d-47c8-8a08-a6f4c48a3511)
 
+![roboremodemo0](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/6dbcda49-8df1-4b68-84f3-2db423dc2dad)
+![roboremodemo1](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/a5363285-856e-4d50-a757-f0a0aa8bfda3)
+![roboremodemo7](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/c1654da2-2b96-408c-9dcf-7b2fb011d3d9)
 
 Demo app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremofree  
 The demo only allows 5 controls per page so control is distributed over several pages this control has the main functions but is incomplete.  
 
-![roboremodemo0](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/d63275af-f367-48ba-b293-68cb87f50113)
-![roboremodemo1](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/aaa4ed88-9f64-4204-a95b-7061db2b3b8e)
-![roboremodemo7](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/6f62d6f0-bd9f-4de4-8085-b163dc6b8667)
 
 The files for the demo version are in the RoboRemoDemo Interface files directory.  
 Import iface0 on the openning page. Then click the options page button. This button has 7 in brackets, indicating it will take you to page 7 so click the button to go to page 7 and then import iface7 for this page, keep on navigating and importing. Obviously a right faff to do this. I highly recommend paying  for the full version!
