@@ -20,7 +20,7 @@ import secrets
 #WIFI
 ssid = secrets.SSID
 password = secrets.PASSWORD
-print(ssid,password)
+#print(ssid,password)
 #BUTTON
 button = machine.Pin(16, mode=machine.Pin.IN)
 
@@ -49,6 +49,7 @@ irr = machine.Pin(18, mode=machine.Pin.IN)
 
 #SERVOS
 servos=Servos()
+servos.stop()
 LR = 0
 RR = 1
 LF = 2
@@ -74,97 +75,79 @@ def set_speed(desired):
     global speed
     speed = desired
     print("new speed " + str(speed))
-
-def servo_speed(servo, spd):
-    #speed is -1 to 1
-    #corrections for different servo speeds
-    #(RHS motors are reversed)
-    if (servo == RF or servo == RR): spd = -spd
-    #YOU WILL NEED TO DETERMINE YOUR OWN CALIBRATION VALUES
     
-    #forward correction
-    if spd > 0:
-        if (servo == LR): spd = spd * 1.0 + 0
-        if (servo == LF): spd = spd * 1.0
-        if (servo == RF): spd = spd * 1.0
-        if (servo == RR): spd = spd * 1.0
-
-    #backward correction
-    elif spd < 0:
-        if (servo == LR): spd = spd * 1.0 - 0
-        if (servo == LF): spd = spd * 1.0
-        if (servo == RF): spd = spd * 1.0
-        if (servo == RR): spd = spd * 1.0
+def obst_avoid(client):
+    avoiding = True
+    while avoiding:    
+        #Distance
+        dist = get_distance()
+        status = "\nCONN: 0\nLF: F\nOB: T\nDT: " + str(dist)
+        #Proximity
+        prox = get_proximity()
+        status += "\nIRL: " + str(prox[0]) + "\nIRR: " + str(prox[1])
+        
+        if prox[0] == 0 and prox[1] == 0: servos.backward(0.1)
+        elif prox[0] == 0:
+            if dist > 20: servos.curve_right(.1,70)
+            else: servos.turn_right(.1)
+        elif prox[1] == 0:
+            if dist > 20: servos.curve_left(.1,70)
+            else: servos.turn_left(.1)
+        elif dist < 20: servos.turn_right(0.1)
+        else: servos.forward(.1)
+        print(status)    
+        client.send(status)
+        sleep(0.2)
+        #print("BUTTON " + str(button.value()))
+        if button.value() == 1:
+            avoiding = False
+            print(" stop obstacle avoid")
+        servos.stop()
     
-    servos.throttle(servo,spd)
+def line_follow(client):
+    following = True
+    while following:
+        LCR=0x00
+        L = "W"
+        C = "W"
+        R = "W"
+        #print(str(lf_left.read_u16()) + "       " +  str(lf_centre.read_u16()) + "       " + str(lf_right.read_u16()) ) 
+        if lf_left.read_u16() > 55000:
+            LCR=(LCR | 4)
+            L = "B"
+        if lf_centre.read_u16() > 52000:
+            LCR=(LCR | 2)
+            C = "B"
+        if lf_right.read_u16() > 55000:
+            LCR=(LCR | 1)
+            R = "B"
+        print(LCR)
+        #LCR = 0
+        if LCR==2:
+            servos.forward(.1)
+        elif LCR==4:
+            servos.turn_left(.1)
+        elif LCR==6:
+            servos.curve_left(.1,10)
+        elif LCR==1:
+            servos.turn_right(.1)
+        elif LCR==3:
+            servos.curve_right(.1,10)
+        elif LCR==7 or LCR == 5:
+            servos.forward(.1)
+        elif LCR==0:
+            servos.stop()
+            
+        status = "\nCONN: 0\nLF: T\nOB: F\nLFL: " + L +"\nLFC: " + C + "\nLFR: " + R
+        print(status)    
+        client.send(status)
+        sleep(0.2)
+        #print("BUTTON " + str(button.value()))
+        if button.value() == 1:
+            following = False
+            print(" stop following")
+        servos.stop()
 
-def stop():
-    servos.throttle(LR, 0)
-    servos.throttle(RR, 0)
-    servos.throttle(LF, 0)
-    servos.throttle(RF, 0)
-
-def forward():
-    servo_speed(LR, speed)
-    servo_speed(RR, speed)
-    servo_speed(LF, speed)
-    servo_speed(RF, speed)
-
-def backward():
-    servo_speed(LR, -speed)
-    servo_speed(RR, -speed)
-    servo_speed(LF, -speed)
-    servo_speed(RF, -speed)
-
-def turn_left():
-    servo_speed(LR, -speed)
-    servo_speed(RR, speed)
-    servo_speed(LF, -speed)
-    servo_speed(RF, speed)
-
-def turn_right():
-    servo_speed(LR, speed)
-    servo_speed(RR, -speed)
-    servo_speed(LF, speed)
-    servo_speed(RF, -speed)
-
-def crab_left():
-    print("CL")
-    servo_speed(LR, speed)
-    servo_speed(RR, -speed)
-    servo_speed(LF, -speed)
-    servo_speed(RF, speed)
-
-def crab_right():
-    print("CR")
-    servo_speed(LR, -speed)
-    servo_speed(RR, speed)
-    servo_speed(LF, speed)
-    servo_speed(RF, -speed)
-
-def curve_left(biasPcent=20):
-    servo_speed(LR, speed * (100 - biasPcent) / 100)
-    servo_speed(RR, speed * (100 + biasPcent) / 100)
-    servo_speed(LF, speed * (100 - biasPcent) / 100)
-    servo_speed(RF, speed * (100 + biasPcent) / 100)
-
-def curve_right(biasPcent=20):
-    servo_speed(LR, speed * (100 + biasPcent) / 100)
-    servo_speed(RR, speed * (100 - biasPcent) / 100)
-    servo_speed(LF, speed * (100 + biasPcent) / 100)
-    servo_speed(RF, speed * (100 - biasPcent) / 100)
-
-def diag_left():
-    servo_speed(LR, speed)
-    servo_speed(RR, 0)
-    servo_speed(LF, 0)
-    servo_speed(RF, speed)
-
-def diag_right():
-    servo_speed(LR, 0)
-    servo_speed(RR, speed)
-    servo_speed(LF, speed)
-    servo_speed(RF, 0)
 #***************  End Movement  *************************
     
 #***************   distance  ****************************
@@ -184,19 +167,19 @@ def get_proximity():
 #************Create status string  **********************
 def status(command = "none"):
     #connected
-    status = "CONN: 0"
+    status = "CONN: 0\nLF: F\nOB: F"
     print(status)
     #Line following
     L = "W"
-    if lf_left.read_u16() > 54000: L = "B"
+    if lf_left.read_u16() > 50000: L = "B"
     C = "W"
-    if lf_centre.read_u16() > 54000: C = "B"
+    if lf_centre.read_u16() > 50000: C = "B"
     R = "W"
-    if lf_right.read_u16() > 54000: R = "B"
+    if lf_right.read_u16() > 50000: R = "B"
     status += "\nLFL: " + L +"\nLFC: " + C + "\nLFR: " + R
     print(status)
     #Distance
-    status += "\nDT: " + str(get_distance()) + "cm"
+    status += "\nDT: " + str(get_distance())
     print(status)
     #Speed
     status += "\nSP: " + str(int(speed*10))
@@ -235,7 +218,9 @@ def open_socket(ip):
 #***************   SERVER   ********************
 def serve(connection):
     #Start server
-    while True:
+    while True:        
+        #print("LF:    " + str(lf_left.read_u16()) + "     " + str(lf_centre.read_u16()) + "     " + str(lf_right.read_u16()) )
+        #sleep(1)        
         print("Accepting connections")
         multi_beep(2)
         accepted = connection.accept()
@@ -244,29 +229,39 @@ def serve(connection):
         connected = True
         multi_beep(3)
         while connected:
-            try:
+            try:                
                 request = client.recv(1024)
                 request = request.decode('utf-8')
                 request = request.strip()
                 print(request)
+                if request == "OB":
+                    obst_avoid(client)
+                if request == "LF":
+                    line_follow(client)
                 if request == "FW":
-                    forward()
+                    servos.forward(speed)
                 elif request == "STP":
-                    stop()
+                    servos.stop()
                 elif request == "BK":
-                    backward()
+                    servos.backward(speed)
                 elif request == "FL":
-                    turn_left()
+                    servos.turn_left(speed)
                 elif request == "FR":
-                    turn_right()
+                    servos.turn_right(speed)
                 elif request == "CL":
-                    crab_left()
+                    servos.crab_left(speed)
                 elif request == "CR":
-                    crab_right()
+                    servos.crab_right(speed)
                 elif request == "DL":
-                    diag_left()
+                    servos.diag_left(speed)
                 elif request == "DR":
-                    diag_right()
+                    servos.diag_right(speed)
+                elif request == "GRIN":
+                    led.matrixGrin()
+                elif request == "SURP":
+                    led.matrixSurprise()
+                elif request == "ANGR":
+                    led.matrixAngry()
                 elif request.find('SPD') > -1:
                     baz = request.split()
                     print(baz)
@@ -280,6 +275,8 @@ def serve(connection):
     
         print("Connection lost")
     client.close()
+ 
+ 
 
 try:
     ip = connect()
@@ -287,3 +284,4 @@ try:
     serve(connection)
 except KeyboardInterrupt:
     machine.reset()
+
