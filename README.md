@@ -5,7 +5,7 @@ Code for the Otto Mecanum Bot
 
 Otto Mecanum is a 3d printed robot with mecanum wheels.
 
-STL files and assembly instructions are to be found on printables (once I complete the entry)
+STL files and assembly instructions are to be found on printables (https://www.printables.com/model/414218-otto-mecanum)
 
 This repository contains the micropython files for the bot and the interface files for the RoboRemo control app for android
 
