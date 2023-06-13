@@ -11,8 +11,8 @@ This repository contains the micropython files for the bot and the interface fil
 
 Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo  
 RoboRemo.interface is the interface to be imported for control of Otto Mecanum  
+![roboremo](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/1e45027b-f2e7-417d-82d1-171e073c5699)
 
-![roboremo](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/d566f32c-bc0d-47c8-8a08-a6f4c48a3511)
 
 ![roboremodemo0](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/6dbcda49-8df1-4b68-84f3-2db423dc2dad)
 ![roboremodemo1](https://github.com/UEA-envsoft/Otto-Mecanum/assets/64538329/a5363285-856e-4d50-a757-f0a0aa8bfda3)
