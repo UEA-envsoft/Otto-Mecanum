@@ -204,7 +204,9 @@ def connect():
         sleep(1)
     ip = wlan.ifconfig()[0]
     print(f'Connected on {ip}')
-    #led.matrixIp(str(ip))
+    if button.value() == 1:
+        print("Displaying ip ")
+        led.matrixIp(str(ip))
     return ip
 
 def open_socket(ip):
