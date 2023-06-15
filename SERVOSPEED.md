@@ -1,3 +1,5 @@
+The laborious process of calculating correction values to make all servos turn at approx the same speed.
+
 There's no two ways about it, this is a right pain, but if you don't do this, the mecanum wheels will not function properly.
 
 The point of this is to get all 4 servos turning at the same speed.
