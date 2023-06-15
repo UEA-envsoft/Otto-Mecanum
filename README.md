@@ -7,7 +7,14 @@ Otto Mecanum is a 3d printed robot with mecanum wheels.
 
 STL files and assembly instructions are to be found on printables (https://www.printables.com/model/414218-otto-mecanum)
 
-This repository contains the micropython files for the bot and the interface files for the RoboRemo control app for android
+This repository contains the MicroPython files for the bot and the interface files for the RoboRemo control app for android.
+
+Instructions for setting up a Pi Pico with MicroPython can be founed here: https://projects.raspberrypi.org/en/projects/get-started-pico-w/1
+
+RoboRemo is a nifty, user customisable remote control application intended mainly
+for electronics hobby projects. RoboRemo can connect via Bluetooth (RFCOMM /
+BLE), Internet or WiFi (TCP, UDP), and USB (CDC-ACM, FTDI, CP210X,
+CH340). I use the WiFi
 
 Full app: https://play.google.com/store/apps/details?id=com.hardcodedjoy.roboremo  
 RoboRemo.interface is the interface to be imported for control of Otto Mecanum  
