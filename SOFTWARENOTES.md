@@ -9,4 +9,7 @@ If you have kept the button on his head pressed he will then scroll his IP addre
 Otto will beep twice to indicate he has connected to wifi and is now awaiting a remote connection.
 On successful connection he will beep 3 times, indicating he his raring to go.
 
-If connection is lost he will beep twic, indicating that he is once again awaiting a remote connection.
+If connection is lost he will beep twice, indicating that he is once again awaiting a remote connection.
+
+If line follower or object avoidance modes are selected from the app, these can be exited by pressing the button on Otto's top panel
+
