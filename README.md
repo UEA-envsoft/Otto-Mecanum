@@ -37,3 +37,7 @@ You can view this by holding down the button when turning on and holding it unti
 The project uses:  
 ht16k33.mpy courtesy of smittytone https://github.com/smittytone/HT16K33-Python/tree/main/mpy  
 hc-sr04.py courtesy of rsc1975 https://github.com/rsc1975/micropython-hcsr04/tree/master
+  
+[Further notes on the software](SOFTWARENOTES.md)  
+
+[Notes on calibrating servo speed (may not be necessary for non-printed mecanum wheels)](SERVOSPEED.md)  
