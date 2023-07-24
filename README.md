@@ -40,4 +40,4 @@ hc-sr04.py courtesy of rsc1975 https://github.com/rsc1975/micropython-hcsr04/tre
   
 [Further notes on the software](SOFTWARENOTES.md)  
 
-[Notes on calibrating servo speed (may not be necessary for non-printed mecanum wheels)](SERVOSPEED.md)  
+[Notes on calibrating servo speed (may not be necessary for commercially sourced mecanum wheels)](SERVOSPEED.md)  
