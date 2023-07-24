@@ -2,6 +2,9 @@
 
 You will need to have set your wifi details in secrets.py  
 
+If using the opensmart display, uncomment line 44 in main.py
+If display is upside down, uncomment line 47 in main.py
+
 Assuming all is well main.py will run on powerup.  
 Otto will beep once to indicate main.py has started and he will grin.  
 If you have kept the button on his head pressed he will then scroll his IP address, leaving the critical last 3 digits on display.
