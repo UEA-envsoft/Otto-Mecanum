@@ -40,6 +40,11 @@ lf_right = machine.ADC(machine.Pin(26, mode=machine.Pin.IN))
 # Create I2C object
 i2c = machine.I2C(0, scl=machine.Pin(5), sda=machine.Pin(4))
 led = OttoMatrix(i2c)
+# default is the otto DIY 16x8 matrix
+# if using the OPEN SMART matrix uncomment the following line
+# led.isSmartDisplay(True)
+# if display is mounted the other way up uncomment the following line
+# led.isUpsideDown(True)
 led.set_brightness(1)
 led.matrixGrin()
 
