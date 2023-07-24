@@ -4,30 +4,23 @@ import time
 
 class OttoMatrix(HT16K33):
     """
-    OttoMatrix micropython class for the Otto DIY 16x8 LED matrix
-    Version:    0.0
-    Author:     Alex Etchells (UEA-envsoft)
-    License:    GNU GPL 3
-    Copyright:  2023
-    
-    derived from: ht16k33matrixfeatherwing.py
-            https://github.com/smittytone/HT16K33-Python/blob/main/ht16k33matrixfeatherwing.py
-            Micro/Circuit Python class for the Adafruit 0.8-in 16x8 LED matrix FeatherWing.
+    Micro/Circuit Python class for the Adafruit 0.8-in 16x8 LED matrix FeatherWing.
 
-            Version:    3.4.2
-            Bus:        I2C
-            Author:     Tony Smith (@smittytone)
-            License:    MIT
-            Copyright:  2023
+    Version:    3.4.2
+    Bus:        I2C
+    Author:     Tony Smith (@smittytone)
+    License:    MIT
+    Copyright:  2023
     """
 
-     # *********** CONSTANTS **********
+    # *********** CONSTANTS **********
     # ********** PRIVATE PROPERTIES **********
 
     width = 16
     height = 8
     is_inverse = False
     is_sm_disp = False
+    is_upside_down = False
 
     matrixArray = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -37,13 +30,21 @@ class OttoMatrix(HT16K33):
                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+
+    clearMatrix = matrixArray
     
     numSp = [[0],[0],[0],[0],[0],[0],[0],[0]]
     num0 = [[0,0,0],[0,0,0],[1,1,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1],[0,0,0]]
     num1 = [[0,0,0],[0,0,0],[1,1,1],[0,1,0],[0,1,0],[1,1,0],[0,1,0],[0,0,0]]
     num2 = [[0,0,0],[0,0,0],[1,1,1],[1,0,0],[1,1,1],[0,0,1],[1,1,1],[0,0,0]]
     num3 = [[0,0,0],[0,0,0],[1,1,1],[0,0,1],[0,1,1],[0,0,1],[1,1,1],[0,0,0]]
-    num4 = [[0,0,0],[0,0,0],[0,0,1],[0,0,1],[1,1,1],[1,0,1],[1,0,0],[0,0,0]]
+    num4 = [[0,0,0],[0,0,0],
+            [0,0,1],
+            [0,0,1],
+            [1,1,1],
+            [1,0,1],
+            [1,0,0],
+            [0,0,0]]
     num5 = [[0,0,0],[0,0,0],[1,1,1],[0,0,1],[1,1,1],[1,0,0],[1,1,1],[0,0,0]]
     num6 = [[0,0,0],[0,0,0],[1,1,1],[1,0,1],[1,1,1],[1,0,0],[1,1,1],[0,0,0]]
     num7 = [[0,0,0],[0,0,0],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[1,1,1],[0,0,0]]
@@ -64,6 +65,8 @@ class OttoMatrix(HT16K33):
     def isSmartDisplay(self, yes):
         self.is_sm_disp = yes
 
+    def isUpsideDown(self, yes):
+        self.is_upside_down = yes
     # *********** PUBLIC METHODS **********
 
     def set_inverse(self):
@@ -93,6 +96,11 @@ class OttoMatrix(HT16K33):
         """
         # Bail on incorrect row numbers or character values
         assert (0 <= x < self.width) and (0 <= y < self.height), "ERROR - Invalid coordinate set in plot()"
+        
+        #Upside Down
+        if self.is_upside_down:
+            y = 7 - y
+            x = 15 - x        
         
         #Otto Matrix
         oldY = y
@@ -317,8 +325,130 @@ class OttoMatrix(HT16K33):
         self.matrixArray[0][12] = 1
         self.matrixArray[0][13] = 1
         self.matrixDraw()
+        
          
-     
+    def matrixEyes(self):
+        print("eyes")
+        self.matrixClear()
+        self.matrixArray[5][3] = 1
+        self.matrixArray[5][4] = 1
+        self.matrixArray[4][2] = 1
+        #self.matrixArray[4][3] = 1
+        #self.matrixArray[4][4] = 1
+        self.matrixArray[4][5] = 1
+        self.matrixArray[3][2] = 1
+        #self.matrixArray[3][3] = 1
+        #self.matrixArray[3][4] = 1
+        self.matrixArray[3][5] = 1
+        self.matrixArray[2][3] = 1
+        self.matrixArray[2][4] = 1
+        self.matrixArray[5][11] = 1
+        self.matrixArray[5][12] = 1
+        self.matrixArray[4][10] = 1
+        #self.matrixArray[4][11] = 1
+        #self.matrixArray[4][12] = 1
+        self.matrixArray[4][13] = 1
+        self.matrixArray[3][10] = 1
+        #self.matrixArray[3][11] = 1
+        #self.matrixArray[3][12] = 1
+        self.matrixArray[3][13] = 1
+        self.matrixArray[2][11] = 1
+        self.matrixArray[2][12] = 1
+        self.matrixDraw()
+        
+    def matrixEyesClose(self):
+        print("eyes")
+        self.matrixClear()
+        self.matrixArray[3][2] = 1
+        self.matrixArray[3][3] = 1
+        self.matrixArray[3][4] = 1
+        self.matrixArray[3][5] = 1
+        self.matrixArray[3][10] = 1
+        self.matrixArray[3][11] = 1
+        self.matrixArray[3][12] = 1
+        self.matrixArray[3][13] = 1
+        self.matrixDraw()
+    
+    
+    def matrixEyesLeft(self):
+        print("eyes")
+        self.matrixClear()
+        self.matrixArray[5][4] = 1
+        self.matrixArray[5][5] = 1
+        self.matrixArray[4][3] = 1
+        #self.matrixArray[4][4] = 1
+        #self.matrixArray[4][5] = 1
+        self.matrixArray[4][6] = 1
+        self.matrixArray[3][3] = 1
+        #self.matrixArray[3][4] = 1
+        #self.matrixArray[3][5] = 1
+        self.matrixArray[3][6] = 1
+        self.matrixArray[2][4] = 1
+        self.matrixArray[2][5] = 1
+        self.matrixArray[5][12] = 1
+        self.matrixArray[5][13] = 1
+        self.matrixArray[4][11] = 1
+        #self.matrixArray[4][12] = 1
+        #self.matrixArray[4][13] = 1
+        self.matrixArray[4][14] = 1
+        self.matrixArray[3][11] = 1
+        #self.matrixArray[3][12] = 1
+        #self.matrixArray[3][13] = 1
+        self.matrixArray[3][14] = 1
+        self.matrixArray[2][12] = 1
+        self.matrixArray[2][13] = 1
+        self.matrixDraw()
+        
+    def matrixEyesLeftUp(self):
+        print("eyes")
+        self.matrixClear()
+        self.matrixArray[6][4] = 1
+        self.matrixArray[6][5] = 1
+        self.matrixArray[5][3] = 1
+        #self.matrixArray[5][4] = 1
+        #self.matrixArray[5][5] = 1
+        self.matrixArray[5][6] = 1
+        self.matrixArray[4][3] = 1
+        #self.matrixArray[4][4] = 1
+        #self.matrixArray[4][5] = 1
+        self.matrixArray[4][6] = 1
+        self.matrixArray[3][4] = 1
+        self.matrixArray[3][5] = 1
+        self.matrixArray[6][12] = 1
+        self.matrixArray[6][13] = 1
+        self.matrixArray[4][11] = 1
+        #self.matrixArray[4][12] = 1
+        #self.matrixArray[4][13] = 1
+        self.matrixArray[4][14] = 1
+        self.matrixArray[5][11] = 1
+        #self.matrixArray[5][12] = 1
+        #self.matrixArray[5][13] = 1
+        self.matrixArray[5][14] = 1
+        self.matrixArray[3][12] = 1
+        self.matrixArray[3][13] = 1
+        self.matrixDraw()
+    
+    def matrixEyesLeftDown(self):
+        print("eyes")
+        self.matrixClear()
+        self.matrixArray[4][4] = 1
+        self.matrixArray[4][5] = 1
+        self.matrixArray[3][3] = 1
+        self.matrixArray[3][6] = 1
+        self.matrixArray[2][3] = 1
+        self.matrixArray[2][6] = 1
+        self.matrixArray[1][4] = 1
+        self.matrixArray[1][5] = 1
+        self.matrixArray[4][12] = 1
+        self.matrixArray[4][13] = 1
+        self.matrixArray[3][11] = 1
+        self.matrixArray[3][14] = 1
+        self.matrixArray[2][11] = 1
+        self.matrixArray[2][14] = 1
+        self.matrixArray[1][12] = 1
+        self.matrixArray[1][13] = 1
+        self.matrixDraw()
+        
     def matrix_left(self):
         for y in range(8):
             recall = self.matrixArray[y][0]
@@ -352,5 +482,4 @@ class OttoMatrix(HT16K33):
                     if self.output[y][x] == 1: self.plot(x,y,1)
             self.draw()
             time.sleep(0.5)
-
 
