@@ -31,7 +31,7 @@ The files for the demo version are in the RoboRemoDemo Interface files directory
 Import iface0 on the openning page. Then click the options page button. This button has 7 in brackets, indicating it will take you to page 7 so click the button to go to page 7 and then import iface7 for this page, keep on navigating and importing. Obviously a right faff to do this. I highly recommend paying  for the full version!
 
 In either version the conneciton buttons need to be edited to contain the appropriate ip address for your bot.
-You can view this by holding down the button when turning on and holding it until the ip addredd starts to scroll across the display. 
+You can view this by holding down the button on the top of Otto Mecanum when turning on and continue holding it until the ip addredd starts to scroll across the display. 
 (Assuming you have added wireless connection info to secrets.py)
 
 The project uses:  
